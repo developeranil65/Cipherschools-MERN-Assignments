@@ -1,32 +1,26 @@
 [
-    {
-        "id" : "1",
-        "name" : "aman",
-        "email" : "anilsingh@gmail.com",
-        "course" : "btech anil"
-    },
-    {
-        "id" : "2",
-        "name" : "vikas",
-        "email" : "vikassingh@gmail.com",
-        "course" : "btech vikas"
-    },
-    {
-        "id" : "3",
-        "name" : "rahul",
-        "email" : "rahulsingh@gmail.com",
-        "course" : "btech rahul"
-    },
-    {
-        "id" : "4",
-        "name" : "rohit",
-        "email" : "rohitsingh@gmail.com",
-        "course" : "btech rohit"
-    },
-    {
-        "id" : "5",
-        "name" : "rohit",
-        "email" : "rohitsingh@gmail.com",
-        "course" : "btech rohit"
-    }
+  {
+    "id": "1",
+    "name": "Aman",
+    "email": "aman@gmail.com",
+    "course": "BTech"
+  },
+  {
+    "id": "2",
+    "name": "Vikas",
+    "email": "vikas@gmail.com",
+    "course": "BTech"
+  },
+  {
+    "id": "3",
+    "name": "Rahul",
+    "email": "rahul@gmail.com",
+    "course": "BTech"
+  },
+  {
+    "id": "4",
+    "name": "Rohit",
+    "email": "rohit@gmail.com",
+    "course": "BTech"
+  }
 ]
