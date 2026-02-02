@@ -1,11 +1,5 @@
 [
   {
-    "id": "1",
-    "name": "Aman",
-    "email": "aman@gmail.com",
-    "course": "BTech"
-  },
-  {
     "id": "2",
     "name": "Vikas",
     "email": "vikas@gmail.com",
@@ -22,5 +16,11 @@
     "name": "Rohit",
     "email": "rohit@gmail.com",
     "course": "BTech"
+  },
+  {
+    "id": "8",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "course": "Computer Science"
   }
 ]
