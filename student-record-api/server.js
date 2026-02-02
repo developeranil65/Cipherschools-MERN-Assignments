@@ -1,78 +1,74 @@
 import express from "express";
-import { promises as fs } from "fs";
+import fs from "fs";
 
 const app = express();
 app.use(express.json());
 
-const readData = async () => {
+function readStudents() {
     try {
-        const data = await fs.readFile("file.json", "utf-8");
-        return JSON.parse(data || "[]");
-    } catch (err) {
-        console.error("Failed to read data:", err.message);
+        return JSON.parse(fs.readFileSync("file.json", "utf-8"));
+    } catch {
         return [];
     }
-};
+}
 
-const writeData = async (data) => {
-    try {
-        await fs.writeFile("file.json", JSON.stringify(data, null, 2));
-    } catch (err) {
-        console.error("Failed to write data");
-    }
-};
+function writeStudents(students) {
+    fs.writeFileSync("file.json", JSON.stringify(students, null, 2));
+}
 
-app.post("/students", async (req, res) => {
+app.post("/students", (req, res) => {
+    const students = readStudents();
     const { id, name, email, course } = req.body;
-    const students = await readData();
     const exists = students.some(s => s.id === id);
     if (exists) {
-        return res.status(409).json({ message: "Student already exists" });
+        return res.send("Student already exists");
     }
-    students.push({ id, name, email, course });
-    await writeData(students);
-    res.status(201).json({ message: "Student added" });
+    const updatedStudents = [...students, { id, name, email, course }];
+    writeStudents(updatedStudents);
+    res.send("Student added successfully");
 });
 
-app.get("/students", async (_req, res) => {
-    const students = await readData();
-    res.status(200).json(students);
+app.get("/students", (_, res) => {
+    res.send(readStudents());
 });
 
-app.get("/students/:id", async (req, res) => {
-    const { id } = req.params;
-    const students = await readData();
-    const student = students.find(s => s.id === id);
+app.get("/students/:id", (req, res) => {
+    const student = readStudents().find(
+        s => s.id === req.params.id
+    );
     if (!student) {
-        return res.status(404).json({ message: "Student not found" });
+        return res.send("Student not found");
     }
-    res.status(200).json(student);
+    res.send(student);
 });
 
-app.put("/students/:id", async (req, res) => {
+app.put("/students/:id", (req, res) => {
+    const students = readStudents();
     const { id } = req.params;
-    const students = await readData();
-    const index = students.findIndex(s => s.id === id);
-    if (index === -1) {
-        return res.status(404).json({ message: "Student not found" });
+    const exists = students.some(s => s.id === id);
+    if (!exists) {
+        return res.send("Student not found");
     }
-    students[index] = {
-        ...students[index],
-        ...req.body
-    };
-    await writeData(students);
-    res.status(200).json({ message: "Student updated successfully" });
+    const updatedStudents = students.map(student =>
+        student.id === id
+            ? { ...student, ...req.body }
+            : student
+    );
+    writeStudents(updatedStudents);
+    res.send("Student updated");
 });
 
-app.delete("/students/:id", async (req, res) => {
+app.delete("/students/:id", (req, res) => {
+    const students = readStudents();
     const { id } = req.params;
-    const students = await readData();
-    const filtered = students.filter(s => s.id !== id);
-    if (filtered.length === students.length) {
-        return res.status(404).json({ message: "Student not found" });
+    const filteredStudents = students.filter(
+        student => student.id !== id
+    );
+    if (filteredStudents.length === students.length) {
+        return res.send("Student not found");
     }
-    await writeData(filtered);
-    res.status(200).json({ message: "Student deleted successfully" });
+    writeStudents(filteredStudents);
+    res.send("Student deleted");
 });
 
 app.listen(3000, () => {
