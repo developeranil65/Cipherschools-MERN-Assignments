@@ -13,7 +13,7 @@ function readStudents() {
 }
 
 function writeStudents(students) {
-    fs.writeFileSync("file.json", JSON.stringify(students, null, 2));
+    fs.writeFileSync("file.json", JSON.stringify(students));
 }
 
 app.post("/students", (req, res) => {
