@@ -6,14 +6,14 @@ app.use(express.json());
 
 function readStudents() {
     try {
-        return JSON.parse(fs.readFileSync("file.json", "utf-8"));
+        return JSON.parse(fs.readFile("file.json", "utf-8"));
     } catch {
         return [];
     }
 }
 
 function writeStudents(students) {
-    fs.writeFileSync("file.json", JSON.stringify(students));
+    fs.writeFile("file.json", JSON.stringify(students));
 }
 
 app.post("/students", (req, res) => {

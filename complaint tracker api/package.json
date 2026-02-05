@@ -1,7 +1,7 @@
 {
-  "name": "student-record-api",
+  "name": "city-complaint-register-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend API for City Complaint Register System - A municipal complaint management system",
   "main": "index.js",
   "scripts": {
     "start": "node server.js"
