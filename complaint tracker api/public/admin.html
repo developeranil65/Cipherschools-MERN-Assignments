@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Complaint Register - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Panel</h1>
+            <p>Manage city complaints</p>
+            <nav>
+                <a href="index.html">Submit Complaint</a>
+                <a href="admin.html" class="active">Admin Panel</a>
+            </nav>
+        </header>
+
+        <main>
+            
+            <section class="stats-section">
+                <h2>Complaint Statistics</h2>
+                <div id="stats" class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total</h3>
+                        <p class="stat-number" id="totalCount">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending</h3>
+                        <p class="stat-number" id="pendingCount">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Resolved</h3>
+                        <p class="stat-number" id="resolvedCount">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Rejected</h3>
+                        <p class="stat-number" id="rejectedCount">-</p>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section class="admin-section">
+                <h2>All Complaints</h2>
+
+                <div class="filter-bar">
+                    <select id="adminStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <select id="adminCategoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Road Maintenance">Road Maintenance</option>
+                        <option value="Street Lighting">Street Lighting</option>
+                        <option value="Waste Management">Waste Management</option>
+                        <option value="Water Supply">Water Supply</option>
+                        <option value="Drainage">Drainage</option>
+                        <option value="Public Safety">Public Safety</option>
+                        <option value="Parks & Recreation">Parks & Recreation</option>
+                        <option value="Noise Pollution">Noise Pollution</option>
+                        <option value="Illegal Construction">Illegal Construction</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <select id="adminPriorityFilter">
+                        <option value="">All Priorities</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                    <button id="adminApplyFilters" class="btn btn-secondary">Apply Filters</button>
+                </div>
+
+                <div id="adminComplaintsList" class="admin-complaints-list">
+                    <p class="loading">Loading complaints...</p>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Update Complaint Status</h2>
+            <div id="modalComplaintInfo"></div>
+            <form id="updateForm">
+                <div class="form-group">
+                    <label for="newStatus">New Status</label>
+                    <select id="newStatus" required>
+                        <option value="pending">Pending</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                    <button type="button" class="btn btn-secondary" id="cancelUpdate">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        
+        const API_URL = 'http://localhost:3000';
+        let currentComplaintId = null;
+
+        async function loadStats() {
+            try {
+                const response = await fetch(`${API_URL}/complaints/stats`);
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('totalCount').textContent = data.data.total;
+                    document.getElementById('pendingCount').textContent = data.data.byStatus.pending || 0;
+                    document.getElementById('resolvedCount').textContent = data.data.byStatus.resolved || 0;
+                    document.getElementById('rejectedCount').textContent = data.data.byStatus.rejected || 0;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        
+        async function loadAdminComplaints(filters = {}) {
+            const listEl = document.getElementById('adminComplaintsList');
+            listEl.innerHTML = '<p class="loading">Loading complaints...</p>';
+
+            try {
+                let url = `${API_URL}/complaints?`;
+                if (filters.status) url += `status=${filters.status}&`;
+                if (filters.category) url += `category=${encodeURIComponent(filters.category)}&`;
+                if (filters.priority) url += `priority=${filters.priority}&`;
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.success && data.data.length > 0) {
+                    listEl.innerHTML = data.data.map(complaint => `
+                        <div class="admin-complaint-card">
+                            <div class="complaint-header">
+                                <h3>#${complaint.id} - ${complaint.title}</h3>
+                                <span class="badge badge-${complaint.status}">${complaint.status}</span>
+                            </div>
+                            <div class="complaint-body">
+                                <p><strong>Description:</strong> ${complaint.description}</p>
+                                <div class="complaint-meta">
+                                    <span><strong>Category:</strong> ${complaint.category}</span>
+                                    <span><strong>Location:</strong> ${complaint.location}</span>
+                                    <span><strong>Ward:</strong> ${complaint.ward}</span>
+                                    <span class="priority-${complaint.priority}"><strong>Priority:</strong> ${complaint.priority}</span>
+                                </div>
+                                <div class="complaint-contact">
+                                    <p><strong>Citizen:</strong> ${complaint.citizenName}</p>
+                                    <p><strong>Contact:</strong> ${complaint.citizenContact}</p>
+                                    ${complaint.citizenPhone ? `<p><strong>Phone:</strong> ${complaint.citizenPhone}</p>` : ''}
+                                </div>
+                                <p class="complaint-date"><strong>Submitted:</strong> ${new Date(complaint.createdAt).toLocaleString()}</p>
+                            </div>
+                            <div class="complaint-actions">
+                                <button class="btn btn-primary btn-sm" onclick="openUpdateModal(${complaint.id}, '${complaint.status}')">Update Status</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteComplaint(${complaint.id})">Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    listEl.innerHTML = '<p class="no-data">No complaints found</p>';
+                }
+            } catch (error) {
+                console.error('Error loading complaints:', error);
+                listEl.innerHTML = '<p class="error">Error loading complaints. Make sure the server is running.</p>';
+            }
+        }
+
+        
+        function openUpdateModal(id, currentStatus) {
+            currentComplaintId = id;
+            document.getElementById('newStatus').value = currentStatus;
+            document.getElementById('modalComplaintInfo').innerHTML = `<p>Updating complaint #${id}</p>`;
+            document.getElementById('updateModal').style.display = 'block';
+        }
+
+        
+        function closeModal() {
+            document.getElementById('updateModal').style.display = 'none';
+            currentComplaintId = null;
+        }
+
+        
+        async function updateComplaintStatus(e) {
+            e.preventDefault();
+            const newStatus = document.getElementById('newStatus').value;
+
+            try {
+                const response = await fetch(`${API_URL}/complaints/${currentComplaintId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer admin-token'
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Complaint status updated successfully!');
+                    closeModal();
+                    loadAdminComplaints();
+                    loadStats();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error updating complaint:', error);
+                alert('Error updating complaint. Please try again');
+            }
+        }
+
+        
+        async function deleteComplaint(id) {
+            if (!confirm(`Are you sure you want to delete complaint #${id}?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/complaints/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer admin-token'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Complaint deleted successfully!');
+                    loadAdminComplaints();
+                    loadStats();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error deleting complaint:', error);
+                alert('Error deleting complaint. Please try again.');
+            }
+        }
+
+        
+        document.getElementById('adminApplyFilters').addEventListener('click', () => {
+            const filters = {
+                status: document.getElementById('adminStatusFilter').value,
+                category: document.getElementById('adminCategoryFilter').value,
+                priority: document.getElementById('adminPriorityFilter').value
+            };
+            loadAdminComplaints(filters);
+        });
+
+        
+        document.querySelector('.close').addEventListener('click', closeModal);
+        document.getElementById('cancelUpdate').addEventListener('click', closeModal);
+        document.getElementById('updateForm').addEventListener('submit', updateComplaintStatus);
+
+        
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('updateModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        
+        loadStats();
+        loadAdminComplaints();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Complaint Register - Submit Complaint</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>City Complaint Register</h1>
+            <p>Submit your complaint and help improve our city</p>
+            <nav>
+                <a href="index.html" class="active">Submit Complaint</a>
+                <a href="admin.html">Admin Panel</a>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Submit Complaint Form -->
+            <section class="form-section">
+                <h2>Submit a Complaint</h2>
+                <form id="complaintForm">
+                    <div class="form-group">
+                        <label for="title">Complaint Title *</label>
+                        <input type="text" id="title" name="title" required
+                            placeholder="Brief description of the issue">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description *</label>
+                        <textarea id="description" name="description" required rows="4"
+                            placeholder="Provide detailed information about the complaint"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category">Category *</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="Road Maintenance">Road Maintenance</option>
+                                <option value="Street Lighting">Street Lighting</option>
+                                <option value="Waste Management">Waste Management</option>
+                                <option value="Water Supply">Water Supply</option>
+                                <option value="Drainage">Drainage</option>
+                                <option value="Public Safety">Public Safety</option>
+                                <option value="Parks & Recreation">Parks & Recreation</option>
+                                <option value="Noise Pollution">Noise Pollution</option>
+                                <option value="Illegal Construction">Illegal Construction</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="priority">Priority</label>
+                            <select id="priority" name="priority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location *</label>
+                        <input type="text" id="location" name="location" required
+                            placeholder="Street name, landmark, or area">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ward">Ward</label>
+                        <input type="text" id="ward" name="ward" placeholder="e.g., Ward 5 (optional)">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="citizenName">Your Name *</label>
+                            <input type="text" id="citizenName" name="citizenName" required placeholder="Full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="citizenContact">Email *</label>
+                            <input type="email" id="citizenContact" name="citizenContact" required
+                                placeholder="your.email@example.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="citizenPhone">Phone Number</label>
+                        <input type="tel" id="citizenPhone" name="citizenPhone" placeholder="+91 1234567890 (optional)">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit Complaint</button>
+                </form>
+
+                <div id="message" class="message"></div>
+            </section>
+
+            <!-- Recent Complaints -->
+            <section class="complaints-section">
+                <h2>Recent Complaints</h2>
+                <div class="filter-bar">
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Road Maintenance">Road Maintenance</option>
+                        <option value="Street Lighting">Street Lighting</option>
+                        <option value="Waste Management">Waste Management</option>
+                        <option value="Water Supply">Water Supply</option>
+                        <option value="Drainage">Drainage</option>
+                        <option value="Public Safety">Public Safety</option>
+                        <option value="Parks & Recreation">Parks & Recreation</option>
+                        <option value="Noise Pollution">Noise Pollution</option>
+                        <option value="Illegal Construction">Illegal Construction</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <button id="applyFilters" class="btn btn-secondary">Apply Filters</button>
+                </div>
+                <div id="complaintsList" class="complaints-list">
+                    <p class="loading">Loading complaints...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
