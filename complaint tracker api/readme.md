@@ -40,6 +40,17 @@ npm start
 
 The server will run on `http://localhost:3000`
 
+4. Start frontend:
+start index.html with live server or
+```bash
+cd public
+start index.html
+```
+
+![Dashboard](./public//images/dash.png)
+
+![Admin Dashboard](./public//images/admindash.png)
+
 ## Quick Start
 
 ### 1. Get All Complaints
