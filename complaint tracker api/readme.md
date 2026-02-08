@@ -33,19 +33,14 @@ A backend REST API for managing city complaints and municipal issues. This syste
 npm install
 ```
 
-3. Start the server:
+3. Start the server and serve static files:
 ```bash
 npm start
 ```
+The app will run on `http://localhost:3000`
 
-The server will run on `http://localhost:3000`
+4. frontend on port 3000:
 
-4. Start frontend:
-start index.html with live server or
-```bash
-cd public
-start index.html
-```
 
 ![Dashboard](./public//images/dash.png)
 
