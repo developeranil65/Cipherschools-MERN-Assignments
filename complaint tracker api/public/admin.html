@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City Complaint Register - Admin Panel</title>
+    <title>Admin Panel - City Complaint Register</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,30 +20,28 @@
         </header>
 
         <main>
-            
             <section class="stats-section">
-                <h2>Complaint Statistics</h2>
+                <h2>Statistics</h2>
                 <div id="stats" class="stats-grid">
                     <div class="stat-card">
                         <h3>Total</h3>
-                        <p class="stat-number" id="totalCount">-</p>
+                        <p class="stat-number" id="totalCount">0</p>
                     </div>
                     <div class="stat-card">
                         <h3>Pending</h3>
-                        <p class="stat-number" id="pendingCount">-</p>
+                        <p class="stat-number" id="pendingCount">0</p>
                     </div>
                     <div class="stat-card">
                         <h3>Resolved</h3>
-                        <p class="stat-number" id="resolvedCount">-</p>
+                        <p class="stat-number" id="resolvedCount">0</p>
                     </div>
                     <div class="stat-card">
                         <h3>Rejected</h3>
-                        <p class="stat-number" id="rejectedCount">-</p>
+                        <p class="stat-number" id="rejectedCount">0</p>
                     </div>
                 </div>
             </section>
 
-            
             <section class="admin-section">
                 <h2>All Complaints</h2>
 
@@ -54,27 +52,7 @@
                         <option value="resolved">Resolved</option>
                         <option value="rejected">Rejected</option>
                     </select>
-                    <select id="adminCategoryFilter">
-                        <option value="">All Categories</option>
-                        <option value="Road Maintenance">Road Maintenance</option>
-                        <option value="Street Lighting">Street Lighting</option>
-                        <option value="Waste Management">Waste Management</option>
-                        <option value="Water Supply">Water Supply</option>
-                        <option value="Drainage">Drainage</option>
-                        <option value="Public Safety">Public Safety</option>
-                        <option value="Parks & Recreation">Parks & Recreation</option>
-                        <option value="Noise Pollution">Noise Pollution</option>
-                        <option value="Illegal Construction">Illegal Construction</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <select id="adminPriorityFilter">
-                        <option value="">All Priorities</option>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                        <option value="critical">Critical</option>
-                    </select>
-                    <button id="adminApplyFilters" class="btn btn-secondary">Apply Filters</button>
+                    <button id="adminApplyFilters" class="btn btn-secondary">Apply Filter</button>
                 </div>
 
                 <div id="adminComplaintsList" class="admin-complaints-list">
@@ -83,9 +61,11 @@
             </section>
         </main>
 
+        <footer>
+            <p>City Complaint Register System 2026</p>
+        </footer>
     </div>
 
-    
     <div id="updateModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -109,7 +89,6 @@
     </div>
 
     <script>
-        
         const API_URL = 'http://localhost:3000';
         let currentComplaintId = null;
 
@@ -129,7 +108,6 @@
             }
         }
 
-        
         async function loadAdminComplaints(filters = {}) {
             const listEl = document.getElementById('adminComplaintsList');
             listEl.innerHTML = '<p class="loading">Loading complaints...</p>';
@@ -137,8 +115,6 @@
             try {
                 let url = `${API_URL}/complaints?`;
                 if (filters.status) url += `status=${filters.status}&`;
-                if (filters.category) url += `category=${encodeURIComponent(filters.category)}&`;
-                if (filters.priority) url += `priority=${filters.priority}&`;
 
                 const response = await fetch(url);
                 const data = await response.json();
@@ -176,11 +152,10 @@
                 }
             } catch (error) {
                 console.error('Error loading complaints:', error);
-                listEl.innerHTML = '<p class="error">Error loading complaints. Make sure the server is running.</p>';
+                listEl.innerHTML = '<p class="error">Error loading complaints</p>';
             }
         }
 
-        
         function openUpdateModal(id, currentStatus) {
             currentComplaintId = id;
             document.getElementById('newStatus').value = currentStatus;
@@ -188,13 +163,11 @@
             document.getElementById('updateModal').style.display = 'block';
         }
 
-        
         function closeModal() {
             document.getElementById('updateModal').style.display = 'none';
             currentComplaintId = null;
         }
 
-        
         async function updateComplaintStatus(e) {
             e.preventDefault();
             const newStatus = document.getElementById('newStatus').value;
@@ -204,7 +177,7 @@
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer admin-token'
+                        'Authorization': 'Bearer admin'
                     },
                     body: JSON.stringify({ status: newStatus })
                 });
@@ -212,7 +185,7 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    alert('Complaint status updated successfully!');
+                    alert('Status updated successfully');
                     closeModal();
                     loadAdminComplaints();
                     loadStats();
@@ -221,13 +194,12 @@
                 }
             } catch (error) {
                 console.error('Error updating complaint:', error);
-                alert('Error updating complaint. Please try again');
+                alert('Error updating complaint');
             }
         }
 
-        
         async function deleteComplaint(id) {
-            if (!confirm(`Are you sure you want to delete complaint #${id}?`)) {
+            if (!confirm(`Delete complaint #${id}?`)) {
                 return;
             }
 
@@ -235,14 +207,14 @@
                 const response = await fetch(`${API_URL}/complaints/${id}`, {
                     method: 'DELETE',
                     headers: {
-                        'Authorization': 'Bearer admin-token'
+                        'Authorization': 'Bearer admin'
                     }
                 });
 
                 const data = await response.json();
 
                 if (data.success) {
-                    alert('Complaint deleted successfully!');
+                    alert('Complaint deleted');
                     loadAdminComplaints();
                     loadStats();
                 } else {
@@ -250,26 +222,21 @@
                 }
             } catch (error) {
                 console.error('Error deleting complaint:', error);
-                alert('Error deleting complaint. Please try again.');
+                alert('Error deleting complaint');
             }
         }
 
-        
         document.getElementById('adminApplyFilters').addEventListener('click', () => {
             const filters = {
-                status: document.getElementById('adminStatusFilter').value,
-                category: document.getElementById('adminCategoryFilter').value,
-                priority: document.getElementById('adminPriorityFilter').value
+                status: document.getElementById('adminStatusFilter').value
             };
             loadAdminComplaints(filters);
         });
 
-        
         document.querySelector('.close').addEventListener('click', closeModal);
         document.getElementById('cancelUpdate').addEventListener('click', closeModal);
         document.getElementById('updateForm').addEventListener('submit', updateComplaintStatus);
 
-        
         window.addEventListener('click', (e) => {
             const modal = document.getElementById('updateModal');
             if (e.target === modal) {
@@ -277,7 +244,6 @@
             }
         });
 
-        
         loadStats();
         loadAdminComplaints();
     </script>

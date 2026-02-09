@@ -11,13 +11,10 @@ import authMiddleware from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-// Public Routes
 router.get('/', getAllComplaints);
 router.get('/stats', getComplaintStats);
 router.get('/:id', getComplaintById);
 router.post('/', createComplaint);
-
-// Protected Routes
 router.put('/:id', authMiddleware, updateComplaintStatus);
 router.delete('/:id', authMiddleware, deleteComplaint);
 

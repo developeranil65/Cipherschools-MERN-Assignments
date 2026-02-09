@@ -27,14 +27,12 @@ if (complaintForm) {
             });
 
             const data = await response.json();
-
             const messageEl = document.getElementById('message');
 
             if (data.success) {
                 messageEl.className = 'message success';
-                messageEl.textContent = `✓ Complaint submitted successfully! Your complaint ID is #${data.data.id}`;
+                messageEl.textContent = `Complaint submitted successfully! Your ID is #${data.data.id}`;
                 complaintForm.reset();
-
                 loadComplaints();
 
                 setTimeout(() => {
@@ -42,18 +40,17 @@ if (complaintForm) {
                 }, 5000);
             } else {
                 messageEl.className = 'message error';
-                messageEl.textContent = `✗ Error: ${data.message}`;
+                messageEl.textContent = `Error: ${data.message}`;
             }
         } catch (error) {
-            console.error('Error submitting complaint:', error);
+            console.error('Error:', error);
             const messageEl = document.getElementById('message');
             messageEl.className = 'message error';
-            messageEl.textContent = '✗ Error submitting complaint. Please make sure the server is running';
+            messageEl.textContent = 'Error submitting complaint';
         }
     });
 }
 
-// Load complaints for user page
 async function loadComplaints(filters = {}) {
     const listEl = document.getElementById('complaintsList');
     if (!listEl) return;
@@ -63,7 +60,6 @@ async function loadComplaints(filters = {}) {
     try {
         let url = `${API_URL}/complaints?`;
         if (filters.status) url += `status=${filters.status}&`;
-        if (filters.category) url += `category=${encodeURIComponent(filters.category)}&`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -86,18 +82,16 @@ async function loadComplaints(filters = {}) {
             listEl.innerHTML = '<p class="no-data">No complaints found</p>';
         }
     } catch (error) {
-        console.error('Error loading complaints:', error);
-        listEl.innerHTML = '<p class="error">Error loading complaints. Make sure the server is running on port 3000.</p>';
+        console.error('Error:', error);
+        listEl.innerHTML = '<p class="error">Error loading complaints</p>';
     }
 }
 
-// Apply filters on user page
 const applyFiltersBtn = document.getElementById('applyFilters');
 if (applyFiltersBtn) {
     applyFiltersBtn.addEventListener('click', () => {
         const filters = {
-            status: document.getElementById('statusFilter').value,
-            category: document.getElementById('categoryFilter').value
+            status: document.getElementById('statusFilter').value
         };
         loadComplaints(filters);
     });
