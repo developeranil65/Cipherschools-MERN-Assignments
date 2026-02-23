@@ -1,0 +1,236 @@
+/* ============================================
+   CSS Custom Properties (Design Tokens)
+   Dark Indigo Theme + Plus Jakarta Sans
+   ============================================ */
+:root {
+  /* --- Colors: Dark indigo palette --- */
+  --color-bg: #0F0D1B;
+  --color-surface: #1A1726;
+  --color-surface-alt: #221F30;
+  --color-sidebar-bg: rgba(26, 23, 38, 0.92);
+  --color-border: #2D2840;
+  --color-border-light: #252138;
+
+  /* --- Text colors (light on dark) --- */
+  --color-text-primary: #EEEAF6;
+  --color-text-secondary: #A9A2C0;
+  --color-text-muted: #6E6790;
+
+  /* --- Accent: Vibrant indigo/violet --- */
+  --color-accent: #7C6EF6;
+  --color-accent-hover: #6B5CE7;
+  --color-accent-light: rgba(124, 110, 246, 0.12);
+
+  /* --- Category badge colors --- */
+  --color-crush: #FF6B8A;
+  --color-study: #5B8DEF;
+  --color-funny: #FFB347;
+  --color-secret: #A29BFE;
+
+  --color-crush-bg: rgba(255, 107, 138, 0.12);
+  --color-study-bg: rgba(91, 141, 239, 0.12);
+  --color-funny-bg: rgba(255, 179, 71, 0.12);
+  --color-secret-bg: rgba(162, 155, 254, 0.12);
+
+  /* --- Reaction colors --- */
+  --color-like: #FF6B8A;
+  --color-love: #FF4757;
+  --color-laugh: #FFD93D;
+
+  /* --- Status --- */
+  --color-success: #2ED573;
+  --color-success-bg: rgba(46, 213, 115, 0.12);
+  --color-error: #FF4757;
+  --color-error-bg: rgba(255, 71, 87, 0.12);
+  --color-warning: #FFA502;
+
+  /* --- Shadows (darker, more subtle) --- */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 14px 44px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 24px rgba(124, 110, 246, 0.2);
+
+  /* --- Typography --- */
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-xs: 0.75rem;
+  --font-sm: 0.8125rem;
+  --font-base: 0.9375rem;
+  --font-md: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.35rem;
+  --font-2xl: 1.75rem;
+  --font-3xl: 2.25rem;
+
+  /* --- Spacing --- */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+  --space-3xl: 3rem;
+
+  /* --- Border radius --- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 50%;
+
+  /* --- Transition --- */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* ============================================
+   Reset & Base Styles
+   ============================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  background: transparent;
+}
+
+input,
+textarea {
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ============================================
+   Keyframe Animations
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

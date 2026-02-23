@@ -1,0 +1,212 @@
+/**
+ * @fileoverview CampusTrends page styles.
+ * Dashboard layout with chart panels and stats cards
+ */
+
+.trends-page {
+    max-width: 960px;
+}
+
+.trends-heading {
+    font-size: var(--font-2xl);
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xl);
+}
+
+/* Loading */
+.trends-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3xl);
+    gap: var(--space-lg);
+    color: var(--color-text-muted);
+}
+
+/* ---- Chart Panels Row ---- */
+.trends-charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+
+.trends-chart-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+.trends-chart-title {
+    font-size: var(--font-xs);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-xl);
+}
+
+/* ---- Activity Bar Chart ---- */
+.activity-chart {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    padding-bottom: var(--space-lg);
+}
+
+.activity-bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.activity-bar-wrapper {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.activity-bar {
+    width: 100%;
+    min-height: 2px;
+    background: linear-gradient(180deg, var(--color-accent), rgba(124, 110, 246, 0.3));
+    border-radius: 2px 2px 0 0;
+    transition: height var(--transition-slow);
+}
+
+.activity-label {
+    font-size: 10px;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+/* ---- Mood Cloud ---- */
+.mood-cloud {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+}
+
+.mood-word {
+    font-weight: 600;
+    transition: transform var(--transition-fast);
+    cursor: default;
+}
+
+.mood-word:hover {
+    transform: scale(1.1);
+}
+
+.mood-word--crush {
+    color: var(--color-crush);
+}
+
+.mood-word--study {
+    color: var(--color-study);
+}
+
+.mood-word--funny {
+    color: var(--color-funny);
+}
+
+.mood-word--secret {
+    color: var(--color-secret);
+}
+
+.mood-word--misc {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* ---- Stats Cards Row ---- */
+.trends-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+}
+
+.stat-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all var(--transition-normal);
+}
+
+.stat-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+}
+
+.stat-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-card-label {
+    font-size: var(--font-sm);
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.stat-card-value {
+    font-size: var(--font-2xl);
+    font-weight: 800;
+    color: var(--color-text-primary);
+}
+
+.stat-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.stat-card-icon--confessions {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+}
+
+.stat-card-icon--support {
+    background: var(--color-crush-bg);
+    color: var(--color-crush);
+}
+
+.stat-card-icon--campuses {
+    background: var(--color-study-bg);
+    color: var(--color-study);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .trends-charts {
+        grid-template-columns: 1fr;
+    }
+
+    .trends-stats {
+        grid-template-columns: 1fr;
+    }
+}

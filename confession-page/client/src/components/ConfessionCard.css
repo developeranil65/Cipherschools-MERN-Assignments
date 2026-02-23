@@ -1,0 +1,184 @@
+/**
+ * @fileoverview ConfessionCard styles.
+ * Dark card with rounded corners, category badge, reaction buttons, hover lift.
+ */
+
+.confession-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-normal);
+    animation: fadeInUp 0.4s ease backwards;
+}
+
+.confession-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--color-border-light);
+}
+
+/* Header */
+.confession-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+}
+
+.confession-category {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 4px 12px;
+    border-radius: var(--radius-xl);
+    font-size: var(--font-xs);
+    font-weight: 600;
+}
+
+.category--crush {
+    background: var(--color-crush-bg);
+    color: var(--color-crush);
+}
+
+.category--study {
+    background: var(--color-study-bg);
+    color: var(--color-study);
+}
+
+.category--funny {
+    background: var(--color-funny-bg);
+    color: var(--color-funny);
+}
+
+.category--secret {
+    background: var(--color-secret-bg);
+    color: var(--color-secret);
+}
+
+.confession-time {
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+/* Text Body */
+.confession-text {
+    font-size: var(--font-base);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+    min-height: 60px;
+}
+
+/* Footer */
+.confession-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+}
+
+.confession-anon {
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+/* Reactions */
+.confession-reactions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.reaction-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: var(--radius-xl);
+    font-size: var(--font-xs);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.reaction-btn:hover {
+    background: var(--color-surface-alt);
+}
+
+.reaction-btn--pop {
+    animation: pop 0.35s ease;
+}
+
+.reaction-icon {
+    font-size: 14px;
+}
+
+.reaction-icon--like {
+    color: var(--color-like);
+}
+
+.reaction-icon--love {
+    color: var(--color-love);
+}
+
+.reaction-icon--laugh {
+    color: var(--color-laugh);
+}
+
+/* Edit/Delete Actions */
+.confession-actions {
+    display: flex;
+    gap: var(--space-xs);
+}
+
+.action-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+}
+
+.action-btn--edit:hover {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+}
+
+.action-btn--delete:hover {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+/* Stagger entrance */
+.confession-card:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.confession-card:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.confession-card:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.confession-card:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.confession-card:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.confession-card:nth-child(6) {
+    animation-delay: 0.3s;
+}

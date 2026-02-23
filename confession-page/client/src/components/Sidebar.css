@@ -1,0 +1,190 @@
+/**
+ * @fileoverview Sidebar styles.
+ * Dark panel with semi-transparent backdrop and indigo accents.
+ */
+
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background: var(--color-sidebar-bg);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xl) var(--space-lg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Brand */
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+    padding: var(--space-sm) 0;
+}
+
+.sidebar-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, #7C6EF6, #A29BFE);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-glow);
+}
+
+.sidebar-logo-icon {
+    color: white;
+    font-size: 20px;
+}
+
+.sidebar-brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-brand-name {
+    font-weight: 700;
+    font-size: var(--font-lg);
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.sidebar-brand-tagline {
+    font-weight: 500;
+    font-size: 9px;
+    color: var(--color-text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Navigation Links */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: auto;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    font-size: var(--font-base);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-normal);
+}
+
+.sidebar-link:hover {
+    background: var(--color-accent-light);
+    color: var(--color-text-primary);
+}
+
+.sidebar-link--active {
+    background: linear-gradient(135deg, #7C6EF6, #A29BFE);
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
+.sidebar-link--active:hover {
+    background: linear-gradient(135deg, #6B5CE7, #8F87F0);
+    color: white;
+}
+
+.sidebar-link-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* Write Secret Button */
+.sidebar-write-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    margin: var(--space-xl) 0;
+    background: linear-gradient(135deg, #7C6EF6, #A29BFE);
+    color: white;
+    font-size: var(--font-base);
+    font-weight: 600;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glow);
+    transition: all var(--transition-normal);
+}
+
+.sidebar-write-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(124, 110, 246, 0.4);
+}
+
+.sidebar-write-btn:active {
+    transform: translateY(0);
+}
+
+.sidebar-write-icon {
+    font-size: 16px;
+}
+
+/* User Profile */
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-alt);
+    margin-top: var(--space-lg);
+}
+
+.sidebar-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+}
+
+.sidebar-user-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.sidebar-user-name {
+    font-size: var(--font-sm);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-user-status {
+    font-size: var(--font-xs);
+    color: var(--color-success);
+    font-weight: 500;
+}
+
+.sidebar-logout-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+}
+
+.sidebar-logout-btn:hover {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+}

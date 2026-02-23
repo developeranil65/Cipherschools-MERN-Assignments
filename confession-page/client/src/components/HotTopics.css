@@ -1,0 +1,68 @@
+/**
+ * @fileoverview HotTopics styles.
+ * Tag cloud panel for the right sidebar
+ */
+
+.hottopics-panel {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+}
+
+.hottopics-title {
+    font-size: var(--font-md);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.hottopics-title-icon {
+    color: var(--color-accent);
+    font-size: var(--font-md);
+}
+
+.hottopics-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.hottopics-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 12px;
+    border-radius: var(--radius-xl);
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    font-size: var(--font-xs);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+    cursor: default;
+}
+
+.hottopics-tag:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.hottopics-tag--hot {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.hottopics-count {
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    padding: 1px 6px;
+    border-radius: 8px;
+    min-width: 18px;
+    text-align: center;
+}

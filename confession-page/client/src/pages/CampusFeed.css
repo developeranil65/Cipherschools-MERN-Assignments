@@ -1,0 +1,108 @@
+/**
+ * @fileoverview CampusFeed page styles.
+ * Dark theme two-column layout: confession grid + right sidebar.
+ */
+
+.feed-layout {
+    display: flex;
+    gap: var(--space-2xl);
+}
+
+/* Main Feed Column */
+.feed-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.feed-heading {
+    font-size: var(--font-2xl);
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xl);
+}
+
+.feed-heading-hash {
+    color: var(--color-accent);
+    margin-right: 4px;
+}
+
+.feed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-xl);
+}
+
+/* Right Sidebar */
+.feed-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+/* Loading State */
+.feed-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3xl);
+    gap: var(--space-lg);
+    color: var(--color-text-muted);
+}
+
+.feed-loader {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-accent);
+    border-radius: var(--radius-full);
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty State */
+.feed-empty {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-xl);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--color-border);
+}
+
+.feed-empty-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: var(--space-lg);
+    opacity: 0.5;
+}
+
+.feed-empty h3 {
+    font-size: var(--font-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+}
+
+.feed-empty p {
+    font-size: var(--font-sm);
+    color: var(--color-text-muted);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .feed-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .feed-grid {
+        grid-template-columns: 1fr;
+    }
+}

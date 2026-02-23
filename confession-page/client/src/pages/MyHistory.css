@@ -1,0 +1,205 @@
+/**
+ * @fileoverview MyHistory page styles.
+ * Dark theme profile card + confession list layout.
+ */
+
+.history-layout {
+    max-width: 900px;
+}
+
+.history-heading {
+    font-size: var(--font-2xl);
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xl);
+}
+
+.history-content {
+    display: flex;
+    gap: var(--space-2xl);
+}
+
+/* Profile Card */
+.profile-card {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl) var(--space-xl);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
+    align-self: flex-start;
+    position: sticky;
+    top: var(--space-xl);
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-full);
+    margin: 0 auto var(--space-lg);
+    object-fit: cover;
+    border: 3px solid var(--color-accent-light);
+}
+
+.profile-name {
+    font-size: var(--font-md);
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.profile-subtitle {
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+    margin-top: 2px;
+}
+
+.profile-stats {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+}
+
+.profile-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-stat-value {
+    font-size: var(--font-xl);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.profile-stat-value--accent {
+    color: var(--color-crush);
+}
+
+.profile-stat-label {
+    font-size: var(--font-xs);
+    color: var(--color-text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Confessions List */
+.history-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    min-width: 0;
+}
+
+/* Loading & Empty States */
+.history-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-3xl);
+    gap: var(--space-lg);
+    color: var(--color-text-muted);
+}
+
+.history-empty {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-xl);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--color-border);
+}
+
+.history-empty-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: var(--space-lg);
+    opacity: 0.5;
+}
+
+.history-empty h3 {
+    font-size: var(--font-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+}
+
+.history-empty p {
+    font-size: var(--font-sm);
+    color: var(--color-text-muted);
+}
+
+/* Inline Edit */
+.edit-inline {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-sm);
+    border: 2px solid var(--color-accent);
+}
+
+.edit-textarea {
+    width: 100%;
+    padding: var(--space-md);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-base);
+    color: var(--color-text-primary);
+    resize: vertical;
+    background: var(--color-surface-alt);
+}
+
+.edit-textarea:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(124, 110, 246, 0.15);
+}
+
+.edit-actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: flex-end;
+    margin-top: var(--space-md);
+}
+
+.edit-save {
+    padding: var(--space-sm) var(--space-xl);
+    background: var(--color-accent);
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-sm);
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast);
+}
+
+.edit-save:hover {
+    background: var(--color-accent-hover);
+}
+
+.edit-cancel {
+    padding: var(--space-sm) var(--space-xl);
+    border: 1.5px solid var(--color-border);
+    font-weight: 600;
+    font-size: var(--font-sm);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    transition: background var(--transition-fast);
+}
+
+.edit-cancel:hover {
+    background: var(--color-surface-alt);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .history-content {
+        flex-direction: column;
+    }
+
+    .profile-card {
+        width: 100%;
+        position: static;
+    }
+}
